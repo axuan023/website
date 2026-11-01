@@ -41,6 +41,15 @@
                         <img src="./assets/images/tps-planner.png" alt="map of toronto postal areas coloured by forecast paramedic calls, with ambulance positions" style="object-position: right center;">
                     </div>
                 </a>
+                                <a href="#simplyreview" class="card" id="simplyreview">
+                    <div class="card-head">
+                        <span class="row-title">SimplyReview: amazon rating chrome extension</span>
+                        <span class="date">2026-11-01</span>
+                    </div>
+                    <div class="media">
+                        <img src="./assets/images/simplyreview.png" alt="the SimplyReview box under the stars on an amazon product page" style="object-position: 70% center;">
+                    </div>
+                </a>
 
                 <!-- Project 3 (hidden until it has content)
                 <a href="#project-3" class="card" id="project-3">
@@ -76,6 +85,24 @@
                         <p>the result: with the same 10 ambulances, the optimizer reached 87.8% of calls vs 75.8% for a simple rule.</p>
                         <p>used: python, pandas, scikit-learn, pytorch, scipy, streamlit, plotly. data from city of toronto open data and statistics canada.</p>
                         <p><a href="https://github.com/a-xuan023/TPS-planner" class="link" target="_blank" rel="noopener">check it out on github</a></p>
+                    </div>
+                </section>
+            </template>
+                        <template id="details-simplyreview">
+                <p class="date">2026-11-01</p>
+                <h2 class="panel-title">SimplyReview: a more honest amazon rating</h2>
+                <div class="media">
+                    <img src="./assets/images/simplyreview.png" alt="the SimplyReview box under the stars on an amazon product page" style="object-position: 70% center;">
+                </div>
+
+                <section class="section">
+                    <div class="prose">
+                        <p>SimplyReview is a chrome extension that re-scores amazon ratings with bayes' theorem, so a product with 3 perfect reviews doesn't beat one with 14,000 great ones. it shows the chance of a good experience (4–5 stars) with a range like "likely 76–98%", plus an adjusted star rating.</p>
+                        <p>how it works: it reads the star breakdown and category from the page, adds a few "pretend reviews" that look like a typical product in that category, and works out the range from a beta distribution. it all runs in the browser. inspired by 3blue1brown's video on probabilities of probabilities.</p>
+                        <p>the result: i tested it on 6,095 products from the amazon reviews 2023 dataset. from each product's first 10 reviews, it predicted the long-run star rating with 27–29% less error than the raw average (beauty, appliances, video games).</p>
+                        <p>why: some products are just slop & im tired</p>
+                        <p>used: javascript, python, pandas. data from mcauley lab's amazon reviews 2023.</p>
+                        <p><a href="https://github.com/axuan023/SimplyReview" class="link" target="_blank" rel="noopener">check it out on github</a></p>
                     </div>
                 </section>
             </template>
