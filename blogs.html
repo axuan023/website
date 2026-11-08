@@ -6,6 +6,28 @@
     <title>blogs | Amanda Xuan</title>
     <link rel="icon" type="image/png" href="./assets/images/doodle.png">
     <link rel="stylesheet" href="./assets/css/main.css">
+
+    <!-- Math: KaTeX turns the LaTeX in the posts into real equations -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"></script>
+    <style>
+        /* Equations on their own line; wide ones scroll sideways on phones */
+        .katex-display {
+            margin: 14px 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 4px 0;
+        }
+        .katex { font-size: 1.05em; }
+
+        /* No picture? No thumbnail box: the post shows as just its title line */
+        .media:not(:has(img)) { display: none; }
+
+        /* Same hover as the other cards, for links that open another site */
+        .drive-link:hover .row-title { text-decoration: underline; text-underline-offset: 4px; }
+        .drive-link:hover .media img { transform: scale(1.02); }
+    </style>
 </head>
 <body>
     <div class="page">
@@ -29,28 +51,58 @@
 
         <main>
             <h1>blogs</h1>
-            <p class="role">..still updating this page</p>
+            <section class="section" style="margin-top: 0;">
+                <h2 class="section-title">skule related</h2>
+                <div class="prose">
+                    <p>there seem to be requests about some difficult indE course concepts, i hope these help you out</p>
+                </div>
 
-            <div class="cards">
-                <a href="#project-2" class="card" id="project-2">
-                    <div class="card-head">
-                        <span class="row-title">tung tung tung sahur</span>
-                        <span class="date">2026-10-29</span>
-                    </div>
-                    <div class="media">
-                        <img src="./assets/images/trending-3.jpg" alt="">
-                    </div>
-                </a>
-            </div>
-            <!-- The pop-up that opens when you click a project -->
+                <div class="cards" style="margin-top: 24px;">
+                    <a href="#fourier-series" class="card" id="fourier-series">
+                        <div class="card-head">
+                            <span class="row-title">my take on fourier series</span>
+                        
+                        </div>
+                        <div class="media">
+                            <img src="./assets/images/f_transform.png" alt="a square wave built up from sine waves">
+                        </div>
+                    </a>
+
+                    <!-- Not a "card": it opens google drive instead of a pop-up -->
+                    <a href="https://drive.google.com/drive/folders/1gEJOmHDuKLInLcd_7B-vv8Uc4x6BopNV" class="drive-link" target="_blank" rel="noopener">
+                        <div class="card-head">
+                            <span class="row-title">civ100 notes</span>
+                            <span class="date">google drive ↗</span>
+                        </div>
+                        <div class="media">
+                            <img src="./assets/images/statics.png" alt="civ100 statics notes">
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- everything else -->
+            <section class="section">
+                <div class="cards">
+                    <a href="#project-2" class="card" id="project-2">
+                        <div class="card-head">
+                            <span class="row-title">tung tung tung sahur</span>
+                            <span class="date">2026-10-29</span>
+                        </div>
+                        <div class="media">
+                            <img src="./assets/images/trending-3.jpg" alt="">
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- popup -->
             <dialog class="project-panel" id="project-panel">
                 <button class="panel-close" aria-label="Close">×</button>
                 <div class="panel-inner"></div>
             </dialog>
 
-            <!-- Project details
-                 Its id is "details-" plus the card's id. -->
-            <!-- Project 2 pop-up (current). Replace every [____] with your own words. -->
+           
             <template id="details-project-2">
                 <p class="date">2026-10-29</p>
                 <h2 class="panel-title">tung tung tung sahur</h2>
@@ -82,6 +134,103 @@
                 
                 
             </template>
+
+            <!-- my take on fourier series -->
+            <template id="details-fourier-series">
+                
+                <h2 class="panel-title">my take on fourier series</h2>
+                <p style="font-size: 0.8em; opacity: 0.7; margin-bottom: 1em;">try explaining this to a girl if you need practice btw</p>
+                <div class="media">
+                    <img src="./assets/images/f_transform.png" alt="a square wave built up from sine waves">
+                </div>
+
+                <section class="section">
+                    <div class="prose">
+                        <p>anything really, can be modeled as a sum of sines and cosines. the formula, on \(-\pi\) to \(\pi\):</p>
+                        <p>\[ f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \big( a_n \cos(nx) + b_n \sin(nx) \big) \]</p>
+                        <p>where \(a_n\) and \(b_n\) are coefficients. they tell you how much of each wave is in the mix.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">so how do you find these coefficients?</h3>
+                    <div class="prose">
+                        <p>use a filter (all integrals from \(-\pi\) to \(\pi\)):</p>
+                        <p>\[ a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\,dx \]</p>
+                        <p>\[ a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\cos(nx)\,dx \]</p>
+                        <p>\[ b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin(nx)\,dx \]</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">why does this work?</h3>
+                    <div class="prose">
+                        <p>much like our species, sine waves only care about their own kind:</p>
+                        <p>\[ \int_{-\pi}^{\pi} \sin(mx)\sin(nx)\,dx = \begin{cases} 0 & m \neq n \\ \pi & m = n \end{cases} \]</p>
+                        <p>cosines work the same way:</p>
+                        <p>\[ \int_{-\pi}^{\pi} \cos(mx)\cos(nx)\,dx = \begin{cases} 0 & m \neq n \\ \pi & m = n \end{cases} \]</p>
+                        <p>and any sine times any cosine integrates to 0:</p>
+                        <p>\[ \int_{-\pi}^{\pi} \sin(mx)\cos(nx)\,dx = 0 \]</p>
+                        <p>so you multiply \(f(x)\) by \(\sin(3x)\) and integrate, and every other wave cancels to zero. they leave. only \(\sin(3x)\) stays. divide by \(\pi\) and you've got \(b_3\).</p>
+                        <p>this is called orthogonality. it's when everyone in the room ignores you except the one person exactly like you.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">ur mom wants steps so here it is</h3>
+                    <div class="prose">
+                        <p>1. check symmetry.<br>
+                        \(f\) is odd, \(f(-x) = -f(x)\): all \(a_n = 0\). sines only.<br>
+                        \(f\) is even, \(f(-x) = f(x)\): all \(b_n = 0\). cosines only.<br>
+                        neither: you do both.</p>
+                        <p>2. set up the integral for whatever coefficients are left.</p>
+                        <p>3. use symmetry to halve it. an even integrand over \(-\pi\) to \(\pi\) is 2 × the integral from \(0\) to \(\pi\).</p>
+                        <p>4. integrate. usually by parts btw.</p>
+                        <p>5. clean up with the only two facts:</p>
+                        <p>\[ \sin(n\pi) = 0 \qquad \cos(n\pi) = (-1)^n \]</p>
+                        <p>6. write out the series and plug in a value to check it.</p>
+                        <p>yeah that's the whole unit.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">example</h3>
+                    <div class="prose">
+                        <p>you meet a function \(f(x) = x\) on \(-\pi &lt; x &lt; \pi\). she's a straight line. (repeated every \(2\pi\)... she's really a sawtooth. she has an edge and ur into it. she's not into you because she's a function.)</p>
+
+                        <p><strong>1. symmetry.</strong> \(f(-x) = -x = -f(x)\). she's odd, so only \(b_n\) is left.</p>
+
+                        <p><strong>2. set up \(b_n\).</strong></p>
+                        <p>\[ b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} x\sin(nx)\,dx \]</p>
+
+                        <p><strong>3. halve it.</strong> \(x\) is odd and \(\sin(nx)\) is odd. odd times odd is even.</p>
+                        <p>\[ b_n = \frac{2}{\pi} \int_{0}^{\pi} x\sin(nx)\,dx \]</p>
+
+                        <p><strong>4. integrate by parts.</strong> let \(u = x\) and \(dv = \sin(nx)\,dx\). then \(du = dx\) and \(v = -\frac{\cos(nx)}{n}\).</p>
+                        <p>\[ \int_{0}^{\pi} x\sin(nx)\,dx = \left[ -\frac{x\cos(nx)}{n} \right]_{0}^{\pi} + \frac{1}{n} \int_{0}^{\pi} \cos(nx)\,dx \]</p>
+                        <p>first piece: at \(\pi\) it's \(-\frac{\pi\cos(n\pi)}{n}\), at \(0\) it's \(0\).</p>
+                        <p>second piece:</p>
+                        <p>\[ \frac{1}{n} \left[ \frac{\sin(nx)}{n} \right]_{0}^{\pi} = \frac{\sin(n\pi) - 0}{n^2} = 0 \]</p>
+                        <p>because \(\sin(n\pi) = 0\). so:</p>
+                        <p>\[ \int_{0}^{\pi} x\sin(nx)\,dx = -\frac{\pi\cos(n\pi)}{n} \]</p>
+
+                        <p><strong>5. clean up.</strong> \(\cos(n\pi) = (-1)^n\):</p>
+                        <p>\[ b_n = \frac{2}{\pi} \cdot \left( -\frac{\pi(-1)^n}{n} \right) = \frac{2(-1)^{n+1}}{n} \]</p>
+                        <p>plug in \(n\):</p>
+                        <p>\[ b_1 = 2, \quad b_2 = -1, \quad b_3 = \tfrac{2}{3}, \quad b_4 = -\tfrac{1}{2} \]</p>
+                        <p>the signs keep flipping like ur bank balance.</p>
+
+                        <p><strong>6. the series.</strong></p>
+                        <p>\[ x = 2\left( \sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \frac{\sin 4x}{4} + \cdots \right) \]</p>
+
+                        <p><strong>7. check it.</strong> never skip the check. plug in \(x = \frac{\pi}{2}\): \(\sin\frac{\pi}{2} = 1\), \(\sin\pi = 0\), \(\sin\frac{3\pi}{2} = -1\), \(\sin 2\pi = 0\)…</p>
+                        <p>\[ \frac{\pi}{2} = 2\left( 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots \right) \]</p>
+                        <p>divide by 2:</p>
+                        <p>\[ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots \]</p>
+                        <p>that's a real known result (the leibniz series), so the answer checks out.</p>
+                    </div>
+                </section>
+            </template>
         </main>
 
         <!-- Footer (the same on every page) -->
@@ -92,5 +241,31 @@
     <script src="./assets/js/pond.js"></script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/projects.js"></script>
+    <script>
+        // latex
+        (() => {
+            const inner = document.querySelector('#project-panel .panel-inner');
+            if (!inner) return;
+            const render = () => {
+                if (window.renderMathInElement) {
+                    renderMathInElement(inner, {
+                        delimiters: [
+                            { left: '\\[', right: '\\]', display: true },
+                            { left: '\\(', right: '\\)', display: false }
+                        ],
+                        throwOnError: false
+                    });
+                }
+            };
+            new MutationObserver(render).observe(inner, { childList: true });
+
+            // hide missing box
+            const hideIfMissing = (img) => {
+                if (img.tagName === 'IMG' && img.closest('.media')) img.closest('.media').style.display = 'none';
+            };
+            window.addEventListener('error', (e) => hideIfMissing(e.target), true);
+            window.addEventListener('load', render); // in case a post opened before katex  loaded
+        })();
+    </script>
 </body>
 </html>
