@@ -32,7 +32,7 @@
 <body>
     <div class="page">
 
-        <!-- Header (the same on every page) -->
+        <!-- Header -->
         <header class="header">
             <a href="./index.html" class="logo" aria-label="Home">
                 <img src="./assets/images/doodle.png" alt="">
@@ -58,6 +58,15 @@
                 </div>
 
                 <div class="cards" style="margin-top: 24px;">
+                    <a href="#fourier-transforms" class="card" id="fourier-transforms">
+                        <div class="card-head">
+                            <span class="row-title">my take on fourier transforms</span>
+                        </div>
+                        <div class="media">
+                            <img src="./assets/images/f_transform1.png" alt="a function and its fourier transform">
+                        </div>
+                    </a>
+
                     <a href="#fourier-series" class="card" id="fourier-series">
                         <div class="card-head">
                             <span class="row-title">my take on fourier series</span>
@@ -68,7 +77,7 @@
                         </div>
                     </a>
 
-                    <!-- Not a "card": it opens google drive instead of a pop-up -->
+                    <!-- opens google drive instead of a pop-up -->
                     <a href="https://drive.google.com/drive/folders/1gEJOmHDuKLInLcd_7B-vv8Uc4x6BopNV" class="drive-link" target="_blank" rel="noopener">
                         <div class="card-head">
                             <span class="row-title">civ100 notes</span>
@@ -231,9 +240,110 @@
                     </div>
                 </section>
             </template>
+
+            <!-- my take on fourier transforms -->
+            <template id="details-fourier-transforms">
+                <h2 class="panel-title">my take on fourier transforms</h2>
+                <div class="media">
+                    <img src="./assets/images/f_transforms1.png" alt="a function and its fourier transform">
+                </div>
+
+                <section class="section">
+                    <div class="prose">
+                        <p>fourier series is for functions that keep coming back every \(2\pi\). the fourier transform is for the ones that show up once and never repeat. aw man. </p>
+                        <p>be optimistic now, pretend she does repeat, just with a period so long it's basically forever. as the period goes to infinity, the separate frequencies \(n = 1, 2, 3, \ldots\) squish together into every frequency \(\omega\), and the sum turns into an integral. the formula:</p>
+                        <p>\[ F(\omega) = \int_{-\infty}^{\infty} f(t)\, e^{-i\omega t}\, dt \]</p>
+                        <p>and to go back:</p>
+                        <p>\[ f(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\omega)\, e^{i\omega t}\, d\omega \]</p>
+                        <p>\(F(\omega)\) tells you how much of frequency \(\omega\) is in the mix. same job as \(a_n\) and \(b_n\), just for every frequency at once.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">where did the sines and cosines go?</h3>
+                    <div class="prose">
+                        <p>they're hiding inside \(e^{i\omega t}\). how lovely. euler's formula:</p>
+                        <p>\[ e^{i\omega t} = \cos(\omega t) + i\sin(\omega t) \]</p>
+                        <p>so \(e^{i\omega t}\) is just a cosine and a sine taped together. it's a point spinning in a circle, \(\omega\) times faster or slower.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">why does this work?</h3>
+                    <div class="prose">
+                        <p>same filter as before. multiply \(f(t)\) by \(e^{-i\omega t}\), which spins backwards at speed \(\omega\). the part of \(f\) at exactly that frequency stops spinning and adds up. everything else keeps spinning, and spinning things average out to zero.</p>
+                        <p>orthogonality again. everyone in the room still ignores you except the one person exactly like you. the room is just infinitely big now.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">ur mom wants steps</h3>
+                    <div class="prose">
+                        <p>1. write \(f(t)\) out and find where it's not zero. those are your limits. most of the time it's not \(-\infty\) to \(\infty\) at all.</p>
+                        <p>2. check symmetry.<br>
+                        \(f\) is even: \(F(\omega)\) is real. only the cosine part survives.<br>
+                        \(f\) is odd: \(F(\omega)\) is purely imaginary. only the sine part survives.</p>
+                        <p>3. plug in and combine the exponents into one \(e^{(\text{something})t}\).</p>
+                        <p>4. integrate. exponentials are easy:</p>
+                        <p>\[ \int e^{kt}\, dt = \frac{e^{kt}}{k} \]</p>
+                        <p>5. clean up with euler. these two show up every single time:</p>
+                        <p>\[ \frac{e^{i\theta} - e^{-i\theta}}{2i} = \sin\theta \qquad \frac{e^{i\theta} + e^{-i\theta}}{2} = \cos\theta \]</p>
+                        <p>6. check it. \(F(0)\) has to equal the area under \(f\), because \(e^{0} = 1\):</p>
+                        <p>\[ F(0) = \int_{-\infty}^{\infty} f(t)\, dt \]</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">example</h3>
+                    <div class="prose">
+                        <p>you meet a rectangular pulse. she's 1 for a little while and 0 the rest of her life:</p>
+                        <p>\[ f(t) = \begin{cases} 1 & |t| &lt; a \\ 0 & \text{otherwise} \end{cases} \]</p>
+
+                        <p><strong>1. limits.</strong> she's only nonzero from \(-a\) to \(a\), so that's all we integrate.</p>
+
+                        <p><strong>2. symmetry.</strong> \(f(-t) = f(t)\). she's even, so the answer should come out real.</p>
+
+                        <p><strong>3. plug in.</strong></p>
+                        <p>\[ F(\omega) = \int_{-a}^{a} e^{-i\omega t}\, dt \]</p>
+
+                        <p><strong>4. integrate.</strong> here \(k = -i\omega\):</p>
+                        <p>\[ F(\omega) = \left[ \frac{e^{-i\omega t}}{-i\omega} \right]_{-a}^{a} = \frac{e^{-i\omega a} - e^{i\omega a}}{-i\omega} = \frac{e^{i\omega a} - e^{-i\omega a}}{i\omega} \]</p>
+
+                        <p><strong>5. clean up.</strong> multiply top and bottom by 2 so the euler identity shows up:</p>
+                        <p>\[ F(\omega) = \frac{2}{\omega} \cdot \frac{e^{i\omega a} - e^{-i\omega a}}{2i} = \frac{2\sin(\omega a)}{\omega} \]</p>
+                        <p>it's real, like step 2 said. the box turned into a wave that wiggles and shrinks. this shape is called a sinc.</p>
+
+                        <p><strong>6. check it.</strong> never skip the check. as \(\omega \to 0\), \(\sin(\omega a) \approx \omega a\), so:</p>
+                        <p>\[ F(0) = \lim_{\omega \to 0} \frac{2\sin(\omega a)}{\omega} = \lim_{\omega \to 0} \frac{2\,\omega a}{\omega} = 2a \]</p>
+                        <p>the box is \(2a\) wide and 1 tall, so its area is \(2a\). it checks out.</p>
+
+                        <p><strong>the plot twist.</strong> the first zero of \(F\) is at \(\omega = \pi / a\). make the pulse narrower (smaller \(a\)) and the transform gets wider. squeeze one side and the other spreads out. this is the uncertainty principle.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">one more so you believe me</h3>
+                    <div class="prose">
+                        <p>\(f(t) = e^{-a|t|}\), a spike that fades out both ways (\(a &gt; 0\)). split it at 0:</p>
+                        <p>\[ F(\omega) = \int_{-\infty}^{0} e^{(a - i\omega)t}\, dt + \int_{0}^{\infty} e^{-(a + i\omega)t}\, dt = \frac{1}{a - i\omega} + \frac{1}{a + i\omega} = \frac{2a}{a^2 + \omega^2} \]</p>
+                        <p>the \(e^{-\infty}\) ends go to 0, which is why \(f\) has to fade out. even, so real. check: \(F(0) = \frac{2}{a}\), and the area under \(e^{-a|t|}\) is \(\frac{2}{a}\). checks out.</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="section-title">rules that save you from integrating</h3>
+                    <div class="prose">
+                        <p>once you know a few transforms, you can get new ones without doing any integrals:</p>
+                        <p>shift it: \(f(t - t_0) \;\to\; e^{-i\omega t_0} F(\omega)\). moving her in time only adds a spin.</p>
+                        <p>squeeze it: \(f(ct) \;\to\; \frac{1}{|c|} F\!\left(\frac{\omega}{c}\right)\). the plot twist from the example, as a formula.</p>
+                        <p>take a derivative: \(f'(t) \;\to\; i\omega F(\omega)\). derivatives turn into multiplication, so differential equations turn into algebra. yeah that's pretty much it.</p>
+                        <p>hint: it's okay to fail this course</p>
+                    </div>
+                </section>
+            </template>
         </main>
 
-        <!-- Footer (the same on every page) -->
+        <!-- Footer ( ) -->
         <footer class="footer">© 2026 Amanda Xuan</footer>
 
     </div>
