@@ -7,12 +7,12 @@
     <link rel="icon" type="image/png" href="./assets/images/doodle.png">
     <link rel="stylesheet" href="./assets/css/main.css">
 
-    <!-- Math: KaTeX turns the LaTeX in the posts into real equations -->
+    <!-- latex -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16/dist/contrib/auto-render.min.js"></script>
     <style>
-        /* Equations on their own line; wide ones scroll sideways on phones */
+        /* equations */
         .katex-display {
             margin: 14px 0;
             overflow-x: auto;
@@ -21,12 +21,15 @@
         }
         .katex { font-size: 1.05em; }
 
-        /* No picture? No thumbnail box: the post shows as just its title line */
+        /* hide empty image box */
         .media:not(:has(img)) { display: none; }
 
-        /* Same hover as the other cards, for links that open another site */
+        /* drive link hover */
         .drive-link:hover .row-title { text-decoration: underline; text-underline-offset: 4px; }
         .drive-link:hover .media img { transform: scale(1.02); }
+
+        /* date questions */
+        .question { font-size: 16px; font-weight: 400; color: var(--strong); margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -58,6 +61,15 @@
                 </div>
 
                 <div class="cards" style="margin-top: 24px;">
+                    <a href="#first-date" class="card" id="first-date">
+                        <div class="card-head">
+                            <span class="row-title">how to go on a first date</span>
+                        </div>
+                        <div class="media">
+                            <img src="./assets/images/date.png" alt="first date">
+                        </div>
+                    </a>
+
                     <a href="#system-design" class="card" id="system-design">
                         <div class="card-head">
                             <span class="row-title">my take on designing a system</span>
@@ -86,7 +98,7 @@
                         </div>
                     </a>
 
-                    <!-- opens google drive instead of a pop-up -->
+                    <!-- google drive -->
                     <a href="https://drive.google.com/drive/folders/1gEJOmHDuKLInLcd_7B-vv8Uc4x6BopNV" class="drive-link" target="_blank" rel="noopener">
                         <div class="card-head">
                             <span class="row-title">civ100 notes</span>
@@ -153,7 +165,7 @@
                 
             </template>
 
-            <!-- my take on fourier series -->
+            <!-- fourier series -->
             <template id="details-fourier-series">
                 
                 <h2 class="panel-title">my take on fourier series</h2>
@@ -216,15 +228,15 @@
                     <div class="prose">
                         <p>you meet a function \(f(x) = x\) on \(-\pi &lt; x &lt; \pi\). she's a straight line. (repeated every \(2\pi\)... she's really a sawtooth. she has an edge and ur into it. she's not into you because she's a function.)</p>
 
-                        <p><strong>1. symmetry.</strong> \(f(-x) = -x = -f(x)\). she's odd, so only \(b_n\) is left.</p>
+                        <p>1. symmetry. \(f(-x) = -x = -f(x)\). she's odd, so only \(b_n\) is left.</p>
 
-                        <p><strong>2. set up \(b_n\).</strong></p>
+                        <p>2. set up \(b_n\).</p>
                         <p>\[ b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} x\sin(nx)\,dx \]</p>
 
-                        <p><strong>3. halve it.</strong> \(x\) is odd and \(\sin(nx)\) is odd. odd times odd is even.</p>
+                        <p>3. halve it. \(x\) is odd and \(\sin(nx)\) is odd. odd times odd is even.</p>
                         <p>\[ b_n = \frac{2}{\pi} \int_{0}^{\pi} x\sin(nx)\,dx \]</p>
 
-                        <p><strong>4. integrate by parts.</strong> let \(u = x\) and \(dv = \sin(nx)\,dx\). then \(du = dx\) and \(v = -\frac{\cos(nx)}{n}\).</p>
+                        <p>4. integrate by parts. let \(u = x\) and \(dv = \sin(nx)\,dx\). then \(du = dx\) and \(v = -\frac{\cos(nx)}{n}\).</p>
                         <p>\[ \int_{0}^{\pi} x\sin(nx)\,dx = \left[ -\frac{x\cos(nx)}{n} \right]_{0}^{\pi} + \frac{1}{n} \int_{0}^{\pi} \cos(nx)\,dx \]</p>
                         <p>first piece: at \(\pi\) it's \(-\frac{\pi\cos(n\pi)}{n}\), at \(0\) it's \(0\).</p>
                         <p>second piece:</p>
@@ -232,16 +244,16 @@
                         <p>because \(\sin(n\pi) = 0\). so:</p>
                         <p>\[ \int_{0}^{\pi} x\sin(nx)\,dx = -\frac{\pi\cos(n\pi)}{n} \]</p>
 
-                        <p><strong>5. clean up.</strong> \(\cos(n\pi) = (-1)^n\):</p>
+                        <p>5. clean up. \(\cos(n\pi) = (-1)^n\):</p>
                         <p>\[ b_n = \frac{2}{\pi} \cdot \left( -\frac{\pi(-1)^n}{n} \right) = \frac{2(-1)^{n+1}}{n} \]</p>
                         <p>plug in \(n\):</p>
                         <p>\[ b_1 = 2, \quad b_2 = -1, \quad b_3 = \tfrac{2}{3}, \quad b_4 = -\tfrac{1}{2} \]</p>
                         <p>the signs keep flipping like ur bank balance.</p>
 
-                        <p><strong>6. the series.</strong></p>
+                        <p>6. the series.</p>
                         <p>\[ x = 2\left( \sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \frac{\sin 4x}{4} + \cdots \right) \]</p>
 
-                        <p><strong>7. check it.</strong> never skip the check. plug in \(x = \frac{\pi}{2}\): \(\sin\frac{\pi}{2} = 1\), \(\sin\pi = 0\), \(\sin\frac{3\pi}{2} = -1\), \(\sin 2\pi = 0\)…</p>
+                        <p>7. check it. never skip the check. plug in \(x = \frac{\pi}{2}\): \(\sin\frac{\pi}{2} = 1\), \(\sin\pi = 0\), \(\sin\frac{3\pi}{2} = -1\), \(\sin 2\pi = 0\)…</p>
                         <p>\[ \frac{\pi}{2} = 2\left( 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots \right) \]</p>
                         <p>divide by 2:</p>
                         <p>\[ \frac{\pi}{4} = 1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \cdots \]</p>
@@ -250,11 +262,11 @@
                 </section>
             </template>
 
-            <!-- my take on fourier transforms -->
+            <!-- fourier transforms -->
             <template id="details-fourier-transforms">
                 <h2 class="panel-title">my take on fourier transforms</h2>
                 <div class="media">
-                    <img src="./assets/images/f_transforms1.png" alt="a function and its fourier transform">
+                    <img src="./assets/images/f_transform1.png" alt="a function and its fourier transform">
                 </div>
 
                 <section class="section">
@@ -308,25 +320,25 @@
                         <p>you meet a rectangular pulse. she's 1 for a little while and 0 the rest of her life:</p>
                         <p>\[ f(t) = \begin{cases} 1 & |t| &lt; a \\ 0 & \text{otherwise} \end{cases} \]</p>
 
-                        <p><strong>1. limits.</strong> she's only nonzero from \(-a\) to \(a\), so that's all we integrate.</p>
+                        <p>1. limits. she's only nonzero from \(-a\) to \(a\), so that's all we integrate.</p>
 
-                        <p><strong>2. symmetry.</strong> \(f(-t) = f(t)\). she's even, so the answer should come out real.</p>
+                        <p>2. symmetry. \(f(-t) = f(t)\). she's even, so the answer should come out real.</p>
 
-                        <p><strong>3. plug in.</strong></p>
+                        <p>3. plug in.</p>
                         <p>\[ F(\omega) = \int_{-a}^{a} e^{-i\omega t}\, dt \]</p>
 
-                        <p><strong>4. integrate.</strong> here \(k = -i\omega\):</p>
+                        <p>4. integrate. here \(k = -i\omega\):</p>
                         <p>\[ F(\omega) = \left[ \frac{e^{-i\omega t}}{-i\omega} \right]_{-a}^{a} = \frac{e^{-i\omega a} - e^{i\omega a}}{-i\omega} = \frac{e^{i\omega a} - e^{-i\omega a}}{i\omega} \]</p>
 
-                        <p><strong>5. clean up.</strong> multiply top and bottom by 2 so the euler identity shows up:</p>
+                        <p>5. clean up. multiply top and bottom by 2 so the euler identity shows up:</p>
                         <p>\[ F(\omega) = \frac{2}{\omega} \cdot \frac{e^{i\omega a} - e^{-i\omega a}}{2i} = \frac{2\sin(\omega a)}{\omega} \]</p>
                         <p>it's real, like step 2 said. the box turned into a wave that wiggles and shrinks. this shape is called a sinc.</p>
 
-                        <p><strong>6. check it.</strong> never skip the check. as \(\omega \to 0\), \(\sin(\omega a) \approx \omega a\), so:</p>
+                        <p>6. check it. never skip the check. as \(\omega \to 0\), \(\sin(\omega a) \approx \omega a\), so:</p>
                         <p>\[ F(0) = \lim_{\omega \to 0} \frac{2\sin(\omega a)}{\omega} = \lim_{\omega \to 0} \frac{2\,\omega a}{\omega} = 2a \]</p>
                         <p>the box is \(2a\) wide and 1 tall, so its area is \(2a\). it checks out.</p>
 
-                        <p><strong>the plot twist.</strong> the first zero of \(F\) is at \(\omega = \pi / a\). make the pulse narrower (smaller \(a\)) and the transform gets wider. squeeze one side and the other spreads out. this is the uncertainty principle.</p>
+                        <p>the plot twist. the first zero of \(F\) is at \(\omega = \pi / a\). make the pulse narrower (smaller \(a\)) and the transform gets wider. squeeze one side and the other spreads out. this is the uncertainty principle.</p>
                     </div>
                 </section>
 
@@ -351,7 +363,7 @@
                 </section>
             </template>
 
-            <!-- my take on designing a system -->
+            <!-- system design -->
             <template id="details-system-design">
                 <h2 class="panel-title">my take on designing a system</h2>
                 <div class="media">
@@ -375,6 +387,7 @@
                 </section>
 
                 <section class="section">
+                    <div class="prose">
                         <p>i also lied. sand and foam is a short collection of aphorisms. gibran wrote about love, god, art and human nature. he didn't know what engineering was. but what gibran basically says is that whoever can point at the line between good and evil is touching god. that line is nearly impossible to find.</p>
                     </div>
                 </section>
@@ -387,6 +400,61 @@
                         <p>pick tradeoffs with purpose.</p>
                         <p>decide what "good" means before you design.</p>
                         <p>glhf!</p>
+                    </div>
+                </section>
+            </template>
+
+            <!-- first date -->
+            <template id="details-first-date">
+                <h2 class="panel-title">how to go on a first date</h2>
+                <div class="media">
+                    <img src="./assets/images/date.png" alt="first date">
+                </div>
+
+                <section class="section">
+                    <h3 class="question">where should i go for a first date:</h3>
+                    <div class="prose">
+                        <p>somewhere ur partner will enjoy going alone</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="question">should i confess my sexual fantasies:</h3>
+                    <div class="prose">
+                        <p>no</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="question">who should pay on a date:</h3>
+                    <div class="prose">
+                        <p>uhhhh</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="question">is it okay to hold hands:</h3>
+                    <div class="prose">
+                        <p>uhhhhhh</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="question">donts:</h3>
+                    <div class="prose">
+                        <p>make ur date feel ambiguous</p>
+                        <p>slow respond texting</p>
+                        <p>bragging</p>
+                        <p>be awkward</p>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h3 class="question">how to not awkward:</h3>
+                    <div class="prose">
+                        <p>dont talk</p>
+                        <p>make up a story</p>
+                        <p>glhf</p>
                     </div>
                 </section>
             </template>
@@ -423,7 +491,7 @@
                 if (img.tagName === 'IMG' && img.closest('.media')) img.closest('.media').style.display = 'none';
             };
             window.addEventListener('error', (e) => hideIfMissing(e.target), true);
-            window.addEventListener('load', render); // in case a post opened before katex  loaded
+            window.addEventListener('load', render); // if katex loads late
         })();
     </script>
 </body>
